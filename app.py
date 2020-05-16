@@ -40,6 +40,16 @@ def latest():
     return jsonify( data )
 
 
+@app.route('/all', methods=['GET'])
+def get_all():
+    checkIfLatest()
+    data = old_data_col.find({})
+    resp = []
+    for d in data:
+        resp.append( { "data" : d['stats'] , "date" : d['date'] } )
+    
+    return jsonify( resp )
+
 
 
 
