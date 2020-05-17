@@ -199,7 +199,7 @@ def findAndUpdateLatest(old_date):
 
   if len(dates) < 1:
     print("No Updates")
-    return 
+    return { "status" : "No New Tweet" }
   
   upts = []
 
@@ -216,7 +216,7 @@ def findAndUpdateLatest(old_date):
     latest_data_col.insert_one( upts[-1] )
     print("Update Successfull")
   
-  return upts
+  return { "status" : "Updated the Database" }
 
   
 def checkIfLatest():
@@ -231,13 +231,13 @@ def checkIfLatest():
   if cur_date > old_date:
     
     print("outdated" , "cur_date ", cur_date , "old_date" , old_date)
-    findAndUpdateLatest(old_date)
-    return False
+    resp = findAndUpdateLatest(old_date)
+    return resp
 
   else:
 
     print("latest")
-    return True
+    return { "status": "latest"}
 
 
 

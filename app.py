@@ -32,6 +32,13 @@ def test():
     return jsonify( data )
 
 
+@app.route('/test_tabula', methods=['GET'])
+def test_tabula():
+    print("I'm running" , testcol.find_one({}))
+    data = [ 1 , 2 , "Buckle My Shoe" , 3 , 4 , "Shut the Door" ]
+    return jsonify( data )
+
+
 @app.route('/latest', methods=['GET'])
 def latest():
     checkIfLatest()
@@ -42,7 +49,6 @@ def latest():
 
 @app.route('/all', methods=['GET'])
 def get_all():
-    checkIfLatest()
     data = old_data_col.find({})
     resp = []
     for d in data:
@@ -52,7 +58,10 @@ def get_all():
 
 
 
-
+@app.route('/update_trigger', methods=['GET'])
+def update_trigger():
+    resp = checkIfLatest()
+    return jsonify(resp)
 
 
 
