@@ -41,7 +41,7 @@ def test_tabula():
 
 @app.route('/latest', methods=['GET'])
 def latest():
-    checkIfLatest()
+    # checkIfLatest()
     data = latest_data_col.find_one({})
     data = { "data" : data['stats'] , "last_updated" : data['date'] }
     return jsonify( data )
