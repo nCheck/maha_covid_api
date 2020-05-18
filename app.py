@@ -1,7 +1,7 @@
 import flask
 import os
 from flask import jsonify, request
-from flask import flash, redirect, url_for, session
+from flask import flash, redirect, url_for, session , render_template
 from flask_cors import CORS, cross_origin
 import requests, json
 import pandas as pd
@@ -68,8 +68,21 @@ def update_trigger():
 
 @app.route('/', methods=['GET'])
 def home():
-    print("loaded")
-    return "Welcome to My API"
+    data = latest_data_col.find_one({})
+    last_updated = data['date']
+    data = data['stats']
+    rows = []
+    cols = [ 'District/Municipal' , 'TOTAL CASES' , 'NEW CASES' , 'TOTAL DEATHS' , 'NEW DEATHS']
+    for d in data.keys():
+
+        rows.append( { 'district': d , 'total_cases' : data[d]['TOTAL_CASES'] , 
+                    'new_cases' : data[d]['NEW_CASES'] , 'total_deaths' : data[d]['TOTAL_DEATHS'] , 
+                    'new_deaths' : data[d]['NEW_DEATHS']  } )
+
+    print(rows[0])
+    print(rows[1])
+
+    return render_template('start.html' , rows=rows , cols = cols , last_updated = last_updated)
 
 
 
