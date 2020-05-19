@@ -37,17 +37,20 @@
                         {% for col in cols %}
                             <th scope="col"> {{ col }} </th>
                         {% endfor %}
+                            <th scope="col"> Analysis </th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
 
                         {% for row in rows %}
+                            
                             <tr>
                                 <th> {{ row['district'] }} </th>
                                 <td>{{ row['total_cases'] }}</td>
                                 <th> {{ row['new_cases'] }} </th>
                                 <td>{{ row['total_deaths'] }}</td>
                                 <th> {{ row['new_deaths'] }} </th>
+                                <th>  <input type="button" value="View Analysis" onClick="location.href='{{ row['url'] }}'" >  </th>
                             </tr>
                         {% endfor %}
                         

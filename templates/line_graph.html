@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <div style="align-content: center; text-align: center;font-size: x-large;">
+        <br>
+        <br>
+        <b> District/Municipal : {{ dist }} </b>
+        <br> Analysis of last 14 days
+        <hr>
+        <br>
+    </div>
+
+<script>
+window.onload = function () {
+
+var new_cases = JSON.parse( '{{ new_cases|safe }}' )
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "New Cases"
+	},
+	axisY:{
+		includeZero: false
+	},
+	data: [{        
+		type: "line",
+      	indexLabelFontSize: 12,
+		dataPoints: new_cases
+	}]
+});
+chart.render();
+
+var total_cases = JSON.parse( '{{ total_cases|safe }}' );
+var recovered_cases = JSON.parse( '{{ recovered_cases|safe }}' );
+
+    var chart2 = new CanvasJS.Chart("chartContainer2", {
+        title: {
+            text: "Active Vs Recovered Cases"
+        },
+        axisX: {
+            title : "Days"
+        },
+        axisY2: {
+            title: "Cases",
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            verticalAlign: "top",
+            horizontalAlign: "center",
+            dockInsidePlotArea: true,
+            itemclick: toogleDataSeries
+        },
+        data: [{
+            type:"line",
+            axisYType: "secondary",
+            name: "Active Cases",
+            showInLegend: true,
+            markerSize: 0,
+            dataPoints: total_cases
+        },
+        {
+            type: "line",
+            axisYType: "secondary",
+            name: "Recovered Cases",
+            showInLegend: true,
+            markerSize: 0,
+            dataPoints: recovered_cases
+        }]
+    });
+    chart2.render();
+    
+    function toogleDataSeries(e){
+        if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else{
+            e.dataSeries.visible = true;
+        }
+        chart2.render();
+    }
+
+}
+</script>
+
+
+
+
+</head>
+<body style="max-width: 800px; margin: auto;">
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<br> <hr> <br>
+<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
