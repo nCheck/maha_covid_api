@@ -27,8 +27,7 @@ $ python app.py
 
 
 
-### API
-#
+## API
 
 
 | PATH | METHOD | DESCRIPTION |
@@ -39,3 +38,4 @@ $ python app.py
 | /history/<id> | GET | Get past 14 days information of particular districts/muncipals  |
 
 
+### Link to API: https://maha-covid-api.herokuapp.com/
