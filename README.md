@@ -27,8 +27,7 @@ $ python app.py
 
 
 
-### API
-#
+## API
 
 
 | PATH | METHOD | DESCRIPTION |
@@ -36,6 +35,7 @@ $ python app.py
 | /latest | GET | Get the latests statistics of all districts/muncipals |
 | /ids | GET | Get ids of all districts/muncipals to use for history API |
 | /all | GET | Get all information from database
-| /history/<id> | GET | Get past 14 days information of particular districts/muncipals  |
+| /history/:id | GET | Get past 14 days information of particular districts/muncipals  |
 
 
+### Link to API: https://maha-covid-api.herokuapp.com/
