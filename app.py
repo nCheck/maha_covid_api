@@ -70,6 +70,20 @@ def update_trigger():
 def getKeyValue():
     return jsonify(id_dist)
 
+@app.route('/genIdDist', methods=['GET'])
+def gen_id_dist_pair():
+    data = latest_data_col.find_one({})
+    data = data['stats']
+    my_id_dist = {}
+
+    for i ,  d in enumerate( data.keys() ):
+        my_id_dist[ str(i) ] = d
+    
+    with open('id_dist_pair.json', 'w+') as fp:
+        json.dump(my_id_dist, fp)
+
+    return jsonify(my_id_dist)
+
 @app.route('/history/<id>', methods=['GET'])
 def district_history(id):
 
